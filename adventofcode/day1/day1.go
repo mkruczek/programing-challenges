@@ -1,12 +1,21 @@
 package main
 
 import (
+	"bufio"
 	"errors"
 	"fmt"
+	"github.com/mkruczek/programing-challenges/adventofcode/service"
+	"log"
+	"strconv"
+)
+
+const (
+	day1       = "../programing-challenges/adventofcode/day1/input"
+	day1Sample = "../programing-challenges/adventofcode/day1/sampleInput"
 )
 
 func main() {
-	res, err := calculateThreeNumbers(input())
+	res, err := calculateThreeNumbers(loadInputDay1())
 	if err != nil {
 		fmt.Printf("%v", err.Error())
 		return
@@ -45,6 +54,31 @@ func calculateThreeNumbers(slice []int) (int, error) {
 		}
 	}
 	return 0, errors.New("couldn't found correct numbers")
+}
+
+func loadInputDay1() []int {
+	var result []int
+	file, err := service.OpenFile(day1)
+	if err != nil {
+		panic("couldn't open file with data : " + err.Error())
+	}
+	defer func() {
+		_ = file.Close()
+	}()
+
+	sc := bufio.NewScanner(file)
+	for sc.Scan() {
+		i, err := strconv.Atoi(sc.Text())
+		if err != nil {
+			log.Printf("Error during parsing file, skiped value : %v", err)
+			continue
+		}
+		result = append(result, i)
+	}
+	if err = sc.Err(); err != nil {
+		panic("couldn't open file with data : " + err.Error())
+	}
+	return result
 }
 
 func simpleInput() []int {
