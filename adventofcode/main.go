@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/mkruczek/programing-challenges/adventofcode/day2"
+	"github.com/mkruczek/programing-challenges/adventofcode/day3"
 )
 
 func main() {
-	fmt.Println(day2.TestPasswordsSecondRule())
+	fmt.Println(day3.EncounterTreesForDifferentPattern())
 }

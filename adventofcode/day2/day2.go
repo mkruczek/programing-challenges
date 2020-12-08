@@ -76,5 +76,8 @@ func loadInputDay2(path string) []passPolicy {
 	for sc.Scan() {
 		result = append(result, newPassPolicyFromString(sc.Text()))
 	}
+	if err = sc.Err(); err != nil {
+		panic("couldn't open file with data : " + err.Error())
+	}
 	return result
 }
