@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/mkruczek/programing-challenges/adventofcode/day4"
+	"github.com/mkruczek/programing-challenges/adventofcode/day5"
 )
 
 func main() {
-	fmt.Println(day4.HelpWithDocuments())
+	fmt.Println(day5.FindMySeat())
 }

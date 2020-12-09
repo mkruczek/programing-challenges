@@ -15,6 +15,8 @@ const (
 	day4SamplePartII = "../programing-challenges/adventofcode/day4/sampleInputPartII"
 )
 
+//figure out how do it with regex
+
 var allowedEcl = [7]string{"amb", "blu", "brn", "gry", "grn", "hzl", "oth"}
 
 type document struct {
