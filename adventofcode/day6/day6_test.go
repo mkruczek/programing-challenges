@@ -13,5 +13,5 @@ func Test_inProgress(t *testing.T) {
 
 	//when
 	//then
-	assert.Equal(t, 6, g.calculateYes())
+	assert.Equal(t, 6, g.calculateAllYes())
 }

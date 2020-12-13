@@ -13,9 +13,10 @@ const (
 
 type group struct {
 	answers []string
+	persons int
 }
 
-func (g *group) calculateYes() int {
+func (g *group) calculateAllYes() int {
 	counterSet := make(map[string]bool)
 	for _, a := range g.answers {
 		for _, v := range strings.Split(a, "") {
@@ -25,10 +26,26 @@ func (g *group) calculateYes() int {
 	return len(counterSet)
 }
 
+func (g *group) calculateOnlyYes() int {
+	counterSet := make(map[string]int)
+	for _, a := range g.answers {
+		for _, v := range strings.Split(a, "") {
+			counterSet[v]++
+		}
+	}
+	result := 0
+	for _, v := range counterSet {
+		if v == g.persons {
+			result++
+		}
+	}
+	return result
+}
+
 func CalculateAnswers() int {
 	counter := 0
 	for _, a := range loadInputDay6() {
-		counter += a.calculateYes()
+		counter += a.calculateOnlyYes()
 	}
 	return counter
 }
@@ -51,7 +68,7 @@ func loadInputDay6() []group {
 			groupsString = append(groupsString, currentReadingGroup)
 			currentReadingGroup = ""
 		} else {
-			currentReadingGroup += line + " "
+			currentReadingGroup += line + " " // todo fix -> last item shouldn't contains " "
 		}
 	}
 	groupsString = append(groupsString, currentReadingGroup) //added last doc because file in not ending with empty line
@@ -71,7 +88,11 @@ func loadInputDay6() []group {
 func convertLineToGroup(l string) *group {
 	result := group{}
 	for _, v := range strings.Split(l, " ") {
+		if strings.EqualFold(v, "") {
+			continue
+		}
 		result.answers = append(result.answers, v)
 	}
+	result.persons = len(result.answers)
 	return &result
 }
