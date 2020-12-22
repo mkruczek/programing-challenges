@@ -13,11 +13,11 @@ func TestConvertLineToBagWhenItContainsOtherBags(t *testing.T) {
 	}{
 		{
 			line:     "light red bags contain 1 bright white bag, 2 muted yellow bags.",
-			expected: bag{color: "light red bags", bags: map[int]bag{1: {color: "bright white"}, 2: {color: "muted yellow"}}},
+			expected: bag{color: "light red", bags: []bag{{amount: 1, color: "bright white"}, {amount: 2, color: "muted yellow"}}},
 		},
 		{
 			line:     "bright white bags contain 1 shiny gold bag.",
-			expected: bag{color: "bright white", bags: map[int]bag{1: {color: "shiny gold"}}},
+			expected: bag{color: "bright white", bags: []bag{{amount: 1, color: "shiny gold"}}},
 		},
 		{
 			line:     "faded blue bags contain no other bags.",

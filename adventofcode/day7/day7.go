@@ -2,9 +2,9 @@ package day7
 
 import (
 	"bufio"
-	"fmt"
 	"github.com/mkruczek/programing-challenges/adventofcode/service"
 	"regexp"
+	"strconv"
 	"strings"
 )
 
@@ -14,10 +14,10 @@ const (
 )
 
 type bag struct {
-	color string
-	bags map[int]bag
+	color  string
+	amount int
+	bags   []bag
 }
-
 
 func loadInputDay7() []bag {
 	var result []bag
@@ -40,27 +40,27 @@ func loadInputDay7() []bag {
 }
 
 func convertLineToBag(line string) bag {
-
-
 	splited := strings.Split(line, " bags contain ")
 	mainColour := splited[0]
 	result := bag{color: mainColour}
 
-	splited2 :=strings.Split(splited[1], ", ")
+	splited2 := strings.Split(splited[1], ", ")
 
-	if !strings.EqualFold(splited2[0], "no other bags."){
-		result.bags = make(map[int]bag)
-		for _, v := range splited2{
-			amount := v[:1] //todo what if more then 9
-			colour := v[1:]
+	if !strings.EqualFold(splited2[0], "no other bags.") {
+		result.bags = []bag{}
+		for _, v := range splited2 {
+			sAmount := v[:1] //todo what if more then 9 -> find first space " "
+			amount, _ := strconv.Atoi(sAmount)
+			colour := v[2:]
 			colour = strings.Split(colour, " bag")[0]
-			result.bags[]
-			fmt.Println(amount," :  ",colour)
+			result.bags = append(result.bags, bag{
+				color:  colour,
+				amount: amount,
+				bags:   nil,
+			})
 		}
 	}
-
-
-	return bag{color: mainColour}
+	return result
 }
 
 func goReSplit(text string, pattern string) []string {
